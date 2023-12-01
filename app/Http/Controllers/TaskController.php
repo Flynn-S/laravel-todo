@@ -43,9 +43,12 @@ class TaskController extends Controller
         ]);
         $task = Task::findOrFail($id);
 
-        if ($request->has('isCompleted') && $request->input('isCompleted') === true) {
-            $validatedData['completed_at'] = Carbon::now();
+        if ($validatedData['isCompleted'] === true) {
+            $validatedData['completed_at'] = now();
+        } else {
+            $validatedData['completed_at'] = null;
         }
+    
         $task->update($validatedData);
 
         return response()->json(['task' => $task, 'message' => "$task->task_name updated successfully"], 200);
