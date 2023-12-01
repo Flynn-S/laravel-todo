@@ -22,14 +22,10 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'task_name' => 'required|string|max:255',
-        //     'description' => 'nullable|string',
-        // ]);
         $validatedData = $request->validate([
             'task_name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'isCompleted' => 'boolean',
+            'description' => 'required|string|max:500',
+            'isCompleted' => 'required|boolean',
         ]);
         $task = Task::create($validatedData);
         return response()->json(['task' => $task, 'message' => "$task->task_name created successfully"], 201);
@@ -41,9 +37,9 @@ class TaskController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'task_name' => 'required_without_all:description,isComplete|string|max:255',
-            'description' => 'nullable|required_without_all:task_name,isComplete|string',
-            'isComplete' => 'required_without_all:description,task_name|boolean'
+            'task_name' => 'required|string|max:255',
+            'description' => 'required|string|max:500',
+            'isComplete' => 'required|boolean'
         ]);
         $task = Task::findOrFail($id);
 
