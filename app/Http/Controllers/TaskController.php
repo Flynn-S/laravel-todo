@@ -24,7 +24,7 @@ class TaskController extends Controller
     {
         $validatedData = $request->validate([
             'task_name' => 'required|string|max:255',
-            'description' => 'required|string|max:500',
+            'description' => 'string|max:500',
             'isCompleted' => 'required|boolean',
         ]);
         $task = Task::create($validatedData);
@@ -38,7 +38,7 @@ class TaskController extends Controller
     {
         $validatedData = $request->validate([
             'task_name' => 'required|string|max:255',
-            'description' => 'required|string|max:500',
+            'description' => 'string|max:500',
             'isComplete' => 'required|boolean'
         ]);
         $task = Task::findOrFail($id);
