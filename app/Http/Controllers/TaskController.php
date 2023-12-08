@@ -59,10 +59,10 @@ class TaskController extends Controller
         ]);
 
         $validatedData['id'] = Str::uuid();
+        $task = Task::create($validatedData);
         if ($request->has('dependencies')) {
             $task->dependencies()->attach($request->input('dependencies'));
         }
-        $task = Task::create($validatedData);
         return response()->json(['task' => $task, 'message' => "$task->task_name created successfully"], 201);
     }
 
